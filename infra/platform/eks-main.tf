@@ -83,9 +83,9 @@ module "eks" {
     }
 
     ng-2 = {
-      desired_capacity = 1
+      desired_capacity = 0
       max_capacity     = 3
-      min_capacity     = 1
+      min_capacity     = 0
 
       instance_types = ["t3.medium"]
       k8s_labels = {

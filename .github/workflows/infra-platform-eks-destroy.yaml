@@ -1,0 +1,49 @@
+name: 'infra-platform-eks-destroy'
+
+on:
+  workflow_dispatch:
+    inputs:
+      component_path:
+        description: 'Which component to destroy?'
+        default: infra/platform
+        required: true
+      # run_apply:
+      #   description: 'Run Apply? (Y|N)'
+      #   required: false
+      #   default: 'N'
+      
+env:
+  ACTIONS_ALLOW_UNSECURE_COMMANDS: 'true'
+  TERRAFORM_RUN_APPLY: ${{ github.event.inputs.run_apply }}
+  TERRAFORM_COMP_PATH: ${{ github.event.inputs.component_path }}
+
+jobs:
+  plan:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        shell: bash
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@1.0.0
+
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: eu-west-1
+
+      - name: Setup Terraform
+        uses: hashicorp/setup-terraform@v1
+        with:
+          terraform_version: v0.12.31  
+
+      - name: Terraform Init
+        working-directory: ${{ env.TERRAFORM_COMP_PATH }}
+        run: terraform init  
+      
+      - name: Terraform Destroy
+        working-directory: ${{ env.TERRAFORM_COMP_PATH }}
+        run: terraform destroy -force

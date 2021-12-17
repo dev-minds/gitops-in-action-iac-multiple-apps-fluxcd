@@ -1,5 +1,5 @@
 ip_range        = "10.101.0.0/16"
-name_tag        = "ncloud-gblog-proj"
+name_tag        = "gitops-in-action-iac-multiple-apps-fluxcd"
 dns_support     = "true"
 dns_hostn       = "true"
 pub_ip_range    = ["10.101.5.0/24", "10.101.6.0/24", "10.101.7.0/24"]

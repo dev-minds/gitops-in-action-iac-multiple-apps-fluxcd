@@ -1,0 +1,7 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+resources:
+  - staging-env-ns.yaml
+  - deployments.yaml
+  - staging-env-ing.yaml
+  - service.yaml

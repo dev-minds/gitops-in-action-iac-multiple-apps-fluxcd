@@ -1,0 +1,23 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: test-env-ghostblog
+  namespace: test-env-ghostblog
+  labels:
+    app: test-env-ghostblog
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: test-env-ghostblog
+  template:
+    metadata:
+      labels:
+        app: test-env-ghostblog
+    spec:
+      containers:
+      - name: test-env-ghostblog
+        image: 303577146899.dkr.ecr.eu-west-1.amazonaws.com/ncloud-gblog-proj:v0.1
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 2368

@@ -76,7 +76,7 @@ export GITHUB_TOKEN=YOURGITHUBTOKEN
 
 ### Bootstrap platform(EKS) with fluxCD
 ```ruby
-flux bootstrap github --owner timonyia --repository flux-controller --branch master --path apps --personal true --components-extra=image-reflector-controller,image-automation-controller --token-auth
+flux bootstrap github --owner GITHUB_OWNER_NAME --repository flux-controller --branch master --path apps --personal true --components-extra=image-reflector-controller,image-automation-controller --token-auth
 ```
 
 ### Clone the created flux management repo locally 
@@ -101,14 +101,14 @@ Navigate to flux management repo `flux-controller`
 cd flux-controller/
 ```
 
-Run below commands from the flux-controller repo 
+Run below commands from the flux-controller repo to add sources that will be managed by fluxcd 
 ```ruby
 flux create source git ncloud-gblog-proj-source --url https://github.com/timonyia/ncloud-gblog-proj.git --branch master --interval 30s --export | tee apps/ncloud-gblog-proj-source.yaml
 flux create kustomization ncloud-gblog-proj-source --source ncloud-gblog-proj-source --path "./deployment/flux-kustomizer" --prune true --validation client --interval 10m --export | tee -a apps/ncloud-gblog-proj-source.yaml 
 ```
 
 Above command essentially creates|generates and merges a new `manifest file` for your sources and kusmtomization components. 
-Push this new file to the flux management repo 
+Push this new file(s) to the flux management repo in the ./app path 
 ```ruby
 git add --all ; git -am "sources and kustomization components added" ; git push origin master 
 ```

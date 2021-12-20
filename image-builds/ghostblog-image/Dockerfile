@@ -71,4 +71,4 @@ ENTRYPOINT ["docker-entrypoint.sh"]
 
 EXPOSE 2368
 CMD ["node", "current/index.js"]
-#Build
+

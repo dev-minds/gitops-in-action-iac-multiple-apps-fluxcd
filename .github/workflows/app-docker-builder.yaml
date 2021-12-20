@@ -36,4 +36,4 @@ jobs:
         IMAGE_TAG: v0.3
       run: |
         docker build -t 658951324167.dkr.ecr.eu-west-1.amazonaws.com/gitops-in-action-gblog-proj:$IMAGE_TAG .
-        docker push 6589513241679.dkr.ecr.eu-west-1.amazonaws.com/gitops-in-action-gblog-proj:$IMAGE_TAG
+        docker push 658951324167.dkr.ecr.eu-west-1.amazonaws.com/gitops-in-action-gblog-proj:$IMAGE_TAG

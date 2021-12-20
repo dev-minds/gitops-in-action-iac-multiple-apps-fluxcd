@@ -6,7 +6,7 @@ metadata:
   labels:
     app: test-env-ghostblog
 spec:
-  replicas: 2
+  replicas: 3
   selector:
     matchLabels:
       app: test-env-ghostblog

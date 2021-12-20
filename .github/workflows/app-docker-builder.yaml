@@ -5,7 +5,7 @@ on:
       branches:
         - 'feature/**'
     paths:
-      - 'image-builder/**'    
+      - 'image-builds/**'    
 
 jobs:
   build:

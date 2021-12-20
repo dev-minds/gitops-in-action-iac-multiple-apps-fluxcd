@@ -17,7 +17,7 @@ spec:
     spec:
       containers:
       - name: staging-env-ghostblog
-        image: 303577146899.dkr.ecr.eu-west-1.amazonaws.com/ncloud-gblog-proj:v0.1
+        image: 658951324167.dkr.ecr.eu-west-1.amazonaws.com/gitops-in-action-gblog-proj:v0.3
         imagePullPolicy: Always
         ports:
         - containerPort: 2368

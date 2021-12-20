@@ -1,4 +1,4 @@
-Ncloud project
+GitOps in action multiple apps deployment sample demo 
 ---
 
 - Architecture design
@@ -12,7 +12,7 @@ This is a setup that ochestrates deployment of ghost blog to a kubernetes cluste
 This setup integrate multiple devops tools to achieve a deployment. Below are the following steps we have implemented to 
 
 ### Create networking layers (VPC|Subnets etc)
-Navigate to [networking-infra](https://github.com/timonyia/ncloud-gblog-proj/tree/master/infra/networking)
+Navigate to [networking-infra](https://github.com/dev-minds/gitops-in-action-iac-multiple-apps-fluxcd/tree/master/infra/networking)
 >Resources include 
 * Basic VPC module 
 * subnet configuration 
@@ -20,7 +20,7 @@ Navigate to [networking-infra](https://github.com/timonyia/ncloud-gblog-proj/tre
 * ECR setup
 * terraform version: v0.12.31
 
-Networking infra cicd with github actions workfow can be found [here](https://github.com/timonyia/ncloud-gblog-proj/blob/master/.github/workflows/infra-networking-cd.yaml)
+Networking infra cicd with github actions workfow can be found [here](https://github.com/dev-minds/gitops-in-action-iac-multiple-apps-fluxcd/actions/workflows/infra-networking-cd.yaml)
 >GHA actions include
 ```ruby
 - name: Checkout
@@ -34,7 +34,7 @@ uses: hashicorp/setup-terraform@v1
 
 ```
 ### Create platform(EKS) for deployment infra 
-Navigate to [platform-infra](https://github.com/timonyia/ncloud-gblog-proj/tree/master/infra/platform)
+Navigate to [platform-infra](https://github.com/dev-minds/gitops-in-action-iac-multiple-apps-fluxcd/tree/master/infra/platform)
 >Resources include
 * Third party EKS module
 * Dynamic networking interpolation 
@@ -44,11 +44,11 @@ Navigate to [platform-infra](https://github.com/timonyia/ncloud-gblog-proj/tree/
 >Authenticate to cluster after creation 
 ```ruby
 aws sts get-caller-identity
-aws eks --region eu-west-1 update-kubeconfig --name ncloud-gblog-proj-cluster
+aws eks --region eu-west-1 update-kubeconfig --name CLUSTER_NAME
 kubectl config get-contexts
 ```
 
-platform infra cicd with github actions workfow can be found [here](https://github.com/timonyia/ncloud-gblog-proj/blob/master/.github/workflows/infra-platform-cd.yaml)
+platform infra cicd with github actions workfow can be found [here](https://github.com/dev-minds/gitops-in-action-iac-multiple-apps-fluxcd/actions/workflows/infra-platform-cd.yaml)
 >GHA actions include
 ```ruby
 - name: Checkout
@@ -61,7 +61,7 @@ uses: aws-actions/configure-aws-credentials@v1
 uses: hashicorp/setup-terraform@v1
 ```
 ### Build and push application to ECR (GitHub Action)
-Navigate to [ecr-image-build](https://github.com/timonyia/ncloud-gblog-proj/blob/master/.github/workflows/app-docker-builder.yaml)
+Navigate to [ecr-image-build](https://github.com/dev-minds/gitops-in-action-iac-multiple-apps-fluxcd/actions/workflows/app-docker-builder.yaml)
 >Components include 
 * ECR repo 
 * Image build workflow with GHA
@@ -81,7 +81,7 @@ flux bootstrap github --owner GITHUB_OWNER_NAME --repository flux-controller --b
 
 ### Clone the created flux management repo locally 
 ```ruby
-git clone https://github.com/timonyia/flux-controller  # Make sure you are able to push to this repo with the right creds 
+git clone git@github.com:dev-minds/flux-controller.git # Make sure you are able to push to this repo with the right creds 
 ```
 
 ```ruby
@@ -103,8 +103,8 @@ cd flux-controller/
 
 Run below commands from the flux-controller repo to add sources that will be managed by fluxcd 
 ```ruby
-flux create source git ncloud-gblog-proj-source --url https://github.com/timonyia/ncloud-gblog-proj.git --branch master --interval 30s --export | tee apps/ncloud-gblog-proj-source.yaml
-flux create kustomization ncloud-gblog-proj-source --source ncloud-gblog-proj-source --path "./deployment/flux-kustomizer" --prune true --validation client --interval 10m --export | tee -a apps/ncloud-gblog-proj-source.yaml 
+flux create source git APP_NAME-source --url https://github.com/dev-minds/gitops-in-action-iac-multiple-apps-fluxcd.git --branch master --interval 30s --export | tee apps/APP_NAME-source.yaml
+flux create kustomization APP_NAME-source --source APP_NAME-source --path "./deployment/flux-kustomizer" --prune true --validation client --interval 10m --export | tee -a apps/APP_NAME-source.yaml 
 ```
 
 Above command essentially creates|generates and merges a new `manifest file` for your sources and kusmtomization components. 
@@ -117,12 +117,8 @@ Next watch the synchronization happen based on the changed components with below
 
 ```ruby
 flux get source git ; flux get kustomization 
-NAME                            READY   MESSAGE                                                                 REVISION                                        SUSPENDED 
-flux-system                     True    Fetched revision: master/2946a5144624abc62d6a286c5babb823666763ba       master/2946a5144624abc62d6a286c5babb823666763ba False    
-ncloud-gblog-proj-source        True    Fetched revision: master/04df242257cd11859b1171c35ee9b3fe29dc0663       master/04df242257cd11859b1171c35ee9b3fe29dc0663 False    
-NAME                            READY   MESSAGE                                                                 REVISION                                        SUSPENDED 
-flux-system                     True    Applied revision: master/2946a5144624abc62d6a286c5babb823666763ba       master/2946a5144624abc62d6a286c5babb823666763ba False    
-ncloud-gblog-proj-source        True    Applied revision: master/04df242257cd11859b1171c35ee9b3fe29dc0663       master/04df242257cd11859b1171c35ee9b3fe29dc0663 False 
+
+
 ```
 
 ### Deploy app components via repo with flux(gitOps)

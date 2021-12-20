@@ -56,9 +56,9 @@ module "eks" {
 
   node_groups = {
     ng-1 = {
-      desired_capacity = 0
+      desired_capacity = 1
       max_capacity     = 3
-      min_capacity     = 0
+      min_capacity     = 1
 
       instance_types = ["t3.large"]
       capacity_type  = "SPOT"
@@ -83,7 +83,7 @@ module "eks" {
     }
 
     ng-2 = {
-      desired_capacity = 1
+      desired_capacity = 2
       max_capacity     = 3
       min_capacity     = 1
 

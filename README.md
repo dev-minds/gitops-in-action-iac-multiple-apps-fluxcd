@@ -117,8 +117,12 @@ Next watch the synchronization happen based on the changed components with below
 
 ```ruby
 flux get source git ; flux get kustomization 
-
-
+NAME                    READY   MESSAGE                                                                 REVISION                                        SUSPENDED 
+flux-system             True    Fetched revision: master/ec41e4f1423cd8b40ba9230143c78ca441ca9f29       master/ec41e4f1423cd8b40ba9230143c78ca441ca9f29 False    
+ghost-blog-source       True    Fetched revision: master/a11382becdd207879ea404e2eca76e510239be64       master/a11382becdd207879ea404e2eca76e510239be64 False    
+NAME                    READY   MESSAGE                                                                 REVISION                                        SUSPENDED 
+flux-system             True    Applied revision: master/ec41e4f1423cd8b40ba9230143c78ca441ca9f29       master/ec41e4f1423cd8b40ba9230143c78ca441ca9f29 False    
+ghost-blog-source       True    Applied revision: master/a11382becdd207879ea404e2eca76e510239be64       master/a11382becdd207879ea404e2eca76e510239be64 False
 ```
 
 ### Deploy app components via repo with flux(gitOps)

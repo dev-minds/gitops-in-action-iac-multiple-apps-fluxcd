@@ -28,11 +28,11 @@ jobs:
       uses: aws-actions/amazon-ecr-login@v1
 
     - name: Build, tag, and push image to Amazon ECR
-      working-directory: 'app/'
+      working-directory: 'image-builds/ghostblog-image'
       env:
         # ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
         ECR_REGISTRY: 658951324167.dkr.ecr.eu-west-1.amazonaws.com/
-        ECR_REPOSITORY: ncloud-gblog-proj
+        ECR_REPOSITORY: gitops-in-action-gblog-proj
         IMAGE_TAG: v0.3
       run: |
         docker build -t 658951324167.dkr.ecr.eu-west-1.amazonaws.com/gitops-in-action-gblog-proj:$IMAGE_TAG .

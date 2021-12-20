@@ -125,6 +125,12 @@ flux-system             True    Applied revision: master/ec41e4f1423cd8b40ba9230
 ghost-blog-source       True    Applied revision: master/a11382becdd207879ea404e2eca76e510239be64       master/a11382becdd207879ea404e2eca76e510239be64 False
 ```
 
+### App routing and ingress configuration 
+1. Install ingress controller on cluster via cli
+```ruby
+kubectl apply -f https://raw.githubusercontent.com/kubernetes/ingress-nginx/controller-v1.0.0/deploy/static/provider/cloud/deploy.yaml
+```
+
 ### Deploy app components via repo with flux(gitOps)
 >test|staging|prod environment 
 ```ruby
@@ -143,10 +149,7 @@ Navigate to [monitoring-components](https://github.com/timonyia/ncloud-gblog-pro
 * Grafana 
 * Prometheus 
 
-### App routing and ingress configuration 
-1. Install ingress controller on cluster via cli
-```ruby
-kubectl apply -f https://raw.githubusercontent.com/kubernetes/ingress-nginx/controller-v1.0.0/deploy/static/provider/cloud/deploy.yaml
+
 
 $ k get ns 
 NAME                 STATUS   AGE

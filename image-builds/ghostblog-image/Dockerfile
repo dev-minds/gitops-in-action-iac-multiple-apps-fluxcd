@@ -72,4 +72,4 @@ ENTRYPOINT ["docker-entrypoint.sh"]
 EXPOSE 2368
 CMD ["node", "current/index.js"]
 
-#public.ecr.aws/d7a8q8e6/gitops-in-action-gblog-proj
+#

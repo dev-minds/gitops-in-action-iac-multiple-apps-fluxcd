@@ -94,7 +94,7 @@ module "eks" {
         GithubOrg  = "terraform-aws-modules"
       }
       additional_tags = {
-        ExtraTag = "example2"
+        ExtraTag = "test-run"
       }
       update_config = {
         max_unavailable_percentage = 50 # or set `max_unavailable`

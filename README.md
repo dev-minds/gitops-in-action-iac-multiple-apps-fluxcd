@@ -168,7 +168,7 @@ ingress-nginx-admission-create-kb5qq        0/1     Completed   0          71s
 ingress-nginx-admission-patch-nr96c         0/1     Completed   1          71s
 ingress-nginx-controller-65c4f84996-lsf2r   1/1     Running     0          71s
 ```
-2. Create ingress object per environment please see sample file in the test-env as below  
+2. Create ingress object(RULES) per environment please see sample file in the test-env as below  
 
 ```ruby
 apiVersion: networking.k8s.io/v1

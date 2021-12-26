@@ -208,3 +208,10 @@ Manual setup of rancher with [user-guide](https://rancher.com/docs/rke/latest/en
 ### Cleanup resources and components 
 1. Run the platform destroyer job [here](https://github.com/timonyia/ncloud-gblog-proj/actions/workflows/infra-platform-eks-destroy.yaml)
 2. Delete any ophan LoadBalancer on your AWS 
+
+---
+### Usefule tools 
+1. [kiosk](https://github.com/loft-sh/kiosk#1-install-kiosk) - Multi-Tenancy Extension For Kubernetes
+2. [loft](https://loft.sh/) - Kubernetes Self-Service and Multi-Tenancy
+3. [kubetail](https://github.com/johanhaleby/kubetail) - tail pod logs 
+4. 
